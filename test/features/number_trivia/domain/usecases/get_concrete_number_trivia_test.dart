@@ -22,7 +22,7 @@ void main() {
   test('should get trivia for number from repository', () async {
     when(repository.getConcreteNumberTrivia(any))
         .thenAnswer((_) async => Right(tNumberTrivia));
-    final result = await usecase.execute(number: tNumber);
+    final result = await usecase(Params(tNumber));
     // UseCase should simply return whatever was returned from the Repository
     expect(result, Right(tNumberTrivia));
     // Verify that the method has been called on the Repository
