@@ -19,7 +19,7 @@ class NumberTriviaLocalDataSourceImpl implements NumberTriviaLocalDataSource {
   @override
   Future<void> cacheNumberTrivia(NumberTriviaModel numberTriviaModel) async {
     final cached = sharedPreferences.getString("CACHED_DATA");
-    final data;
+    final Map<String, String> data;
     if (cached == null) {
       data = {'${numberTriviaModel.number}': numberTriviaModel.text};
     } else {
