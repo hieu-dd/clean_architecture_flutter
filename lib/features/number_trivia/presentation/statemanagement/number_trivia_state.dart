@@ -1,6 +1,5 @@
 import 'package:clean_architecture_flutter/core/error/failure.dart';
 import 'package:clean_architecture_flutter/features/number_trivia/domain/entities/number_trivia.dart';
-import 'package:equatable/equatable.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../../di/injection_container.dart';

@@ -7,12 +7,12 @@ import 'package:clean_architecture_flutter/features/number_trivia/domain/reposit
 import 'package:dartz/dartz.dart';
 
 class NumberTriviaRepositoryImpl implements NumberTriviaRepository {
-  // NumberTriviaLocalDataSource localDataSource;
+  NumberTriviaLocalDataSource localDataSource;
   NumberTriviaRemoteDataSource remoteDataSource;
   NetworkInfo networkInfo;
 
   NumberTriviaRepositoryImpl({
-    // required this.localDataSource,
+    required this.localDataSource,
     required this.remoteDataSource,
     required this.networkInfo,
   });

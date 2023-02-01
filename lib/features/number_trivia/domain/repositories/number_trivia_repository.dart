@@ -7,17 +7,3 @@ abstract class NumberTriviaRepository {
 
   Future<Either<Failure, NumberTrivia>> getRandomNumberTrivia();
 }
-
-class NumberTriviaRepositoryTest implements NumberTriviaRepository {
-  @override
-  Future<Either<Failure, NumberTrivia>> getConcreteNumberTrivia(int number) {
-    // TODO: implement getConcreteNumberTrivia
-    throw UnimplementedError();
-  }
-
-  @override
-  Future<Either<Failure, NumberTrivia>> getRandomNumberTrivia() {
-    // TODO: implement getRandomNumberTrivia
-    throw UnimplementedError();
-  }
-}
