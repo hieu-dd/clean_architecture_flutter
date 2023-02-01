@@ -34,7 +34,7 @@ class NumberTriviaLocalDataSourceImpl implements NumberTriviaLocalDataSource {
   Future<NumberTriviaModel> getConcreteNumberTrivia(int num) async {
     final cached = sharedPreferences.getString("CACHED_DATA");
     if (cached == null) throw CacheException();
-    final String text = json.decode(cached)[num.toString()];
+    final String? text = json.decode(cached)[num.toString()];
     if (text == null) throw CacheException();
     return NumberTriviaModel(text: text, number: num);
   }

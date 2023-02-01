@@ -34,8 +34,15 @@ void main() {
     });
     test('should throw CacheException when not find data', () async {
       when(mockSharedPreferences.getString(any)).thenReturn(null);
-      final call = await dataSource.getConcreteNumberTrivia;
+      final call = dataSource.getConcreteNumberTrivia;
       expect(call(1), throwsA(TypeMatcher<CacheException>()));
+    });
+    test('should throw CacheException when not find num', () async {
+      final Map<String, String> cached = {'1': 'test1', '2': 'test2'};
+      when(mockSharedPreferences.getString(any))
+          .thenReturn(json.encode(cached));
+      final call = dataSource.getConcreteNumberTrivia;
+      expect(call(3), throwsA(TypeMatcher<CacheException>()));
     });
   });
 
