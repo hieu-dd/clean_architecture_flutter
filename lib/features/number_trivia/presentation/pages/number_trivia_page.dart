@@ -16,7 +16,14 @@ class NumberTriviaPage extends ConsumerWidget {
       ),
       body: Column(
         children: [
-          Text("Random"),
+          InkWell(
+            child: Text("Random"),
+            onTap: () {
+              ref
+                  .read(numberTriviaProvider.notifier)
+                  .getConcreteNumberTrivia("1");
+            },
+          ),
           state is Empty
               ? Container()
               : state is Loading
@@ -28,7 +35,7 @@ class NumberTriviaPage extends ConsumerWidget {
                           child: Text(state.message),
                         )
                       : Center(
-                          child: Text((state as Error).message),
+                          child: Text((state as Loaded).numberTrivia.text),
                         )
         ],
       ),

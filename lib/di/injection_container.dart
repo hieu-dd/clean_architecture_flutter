@@ -13,23 +13,11 @@ import 'package:shared_preferences/shared_preferences.dart';
 final sl = GetIt.instance;
 
 Future<void> init() async {
-  // Features
-  sl.registerFactory(
-    () => NumberTriviaNotifier(
-        getConcreteNumberTriviaUseCase: sl(),
-        getRandomNumberTriviaUseCase: sl()),
-  );
-  // UseCases
-  sl.registerSingleton(GetConcreteNumberTrivia(sl<NumberTriviaRepository>()));
-  sl.registerSingleton(GetRandomNumberTrivia(sl<NumberTriviaRepository>()));
-
-  // Repository
-  sl.registerSingleton<NumberTriviaRepository>(NumberTriviaRepositoryImpl(
-    localDataSource: sl(),
-    remoteDataSource: sl<NumberTriviaRemoteDataSource>(),
-    networkInfo: sl<NetworkInfo>(),
-  ));
-
+  // External
+  sl.registerSingletonAsync(() => SharedPreferences.getInstance());
+  sl.registerSingleton<http.Client>(http.Client());
+  // Core
+  sl.registerSingleton<NetworkInfo>(NetworkInfoImpl());
   // Data sources
   sl.registerSingleton<NumberTriviaRemoteDataSource>(
     NumberTriviaRemoteDataSourceImpl(client: sl()),
@@ -37,9 +25,20 @@ Future<void> init() async {
   sl.registerSingleton<NumberTriviaLocalDataSource>(
       NumberTriviaLocalDataSourceImpl(
           sharedPreferences: await sl.getAsync<SharedPreferences>()));
-  // Core
-  sl.registerSingleton<NetworkInfo>(NetworkInfoImpl());
-  // External
-  sl.registerSingletonAsync(() => SharedPreferences.getInstance());
-  sl.registerSingleton<http.Client>(http.Client());
+
+  // Repository
+  sl.registerSingleton<NumberTriviaRepository>(NumberTriviaRepositoryImpl(
+    localDataSource: sl(),
+    remoteDataSource: sl<NumberTriviaRemoteDataSource>(),
+    networkInfo: sl<NetworkInfo>(),
+  ));
+  // UseCases
+  sl.registerSingleton(GetConcreteNumberTrivia(sl<NumberTriviaRepository>()));
+  sl.registerSingleton(GetRandomNumberTrivia(sl<NumberTriviaRepository>()));
+  // Features
+  sl.registerFactory(
+    () => NumberTriviaNotifier(
+        getConcreteNumberTriviaUseCase: sl(),
+        getRandomNumberTriviaUseCase: sl()),
+  );
 }
