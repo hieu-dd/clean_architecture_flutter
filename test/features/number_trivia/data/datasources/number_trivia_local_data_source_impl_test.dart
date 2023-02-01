@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:clean_architecture_flutter/core/error/exception.dart';
 import 'package:clean_architecture_flutter/features/number_trivia/data/datasources/number_trivia_local_data_source.dart';
 import 'package:clean_architecture_flutter/features/number_trivia/data/models/number_trivia_model.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -31,5 +32,21 @@ void main() {
       final result = await dataSource.getConcreteNumberTrivia(2);
       expect(result, equals(tNumberTrivia));
     });
+    test('should throw CacheException when not find data', () async {
+      when(mockSharedPreferences.getString(any)).thenReturn(null);
+      final call = await dataSource.getConcreteNumberTrivia;
+      expect(call(1), throwsA(TypeMatcher<CacheException>()));
+    });
+  });
+
+  test('should call SharedPreferences cache data', () async {
+    when(mockSharedPreferences.getString(any)).thenReturn(null);
+    when(mockSharedPreferences.setString(any, any))
+        .thenAnswer((_) async => true);
+
+    final tNumberTrivia = NumberTriviaModel(text: "hihi", number: 1);
+    await dataSource.cacheNumberTrivia(tNumberTrivia);
+    verify(mockSharedPreferences.setString(
+        "CACHED_DATA", json.encode({'1': 'hihi'})));
   });
 }
