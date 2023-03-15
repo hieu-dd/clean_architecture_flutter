@@ -13,12 +13,11 @@ import 'package:shared_preferences/shared_preferences.dart';
 final sl = GetIt.instance;
 
 Future<void> init() async {
-  // Core
-  sl.registerSingleton<NetworkInfo>(NetworkInfoImpl());
   // External
   sl.registerSingletonAsync(() => SharedPreferences.getInstance());
   sl.registerSingleton<http.Client>(http.Client());
-
+  // Core
+  sl.registerSingleton<NetworkInfo>(NetworkInfoImpl());
   // Data sources
   sl.registerSingleton<NumberTriviaRemoteDataSource>(
     NumberTriviaRemoteDataSourceImpl(client: sl()),
@@ -26,6 +25,7 @@ Future<void> init() async {
   sl.registerSingleton<NumberTriviaLocalDataSource>(
       NumberTriviaLocalDataSourceImpl(
           sharedPreferences: await sl.getAsync<SharedPreferences>()));
+
   // Repository
   sl.registerSingleton<NumberTriviaRepository>(NumberTriviaRepositoryImpl(
     localDataSource: sl(),
@@ -35,7 +35,6 @@ Future<void> init() async {
   // UseCases
   sl.registerSingleton(GetConcreteNumberTrivia(sl<NumberTriviaRepository>()));
   sl.registerSingleton(GetRandomNumberTrivia(sl<NumberTriviaRepository>()));
-
   // Features
   sl.registerFactory(
     () => NumberTriviaNotifier(
