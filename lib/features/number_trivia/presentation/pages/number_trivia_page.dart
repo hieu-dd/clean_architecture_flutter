@@ -9,36 +9,104 @@ class NumberTriviaPage extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     NumberTriviaState state = ref.watch(numberTriviaProvider);
     // NumberTriviaState state = Empty();
-
+    final numberController = TextEditingController();
     return Scaffold(
       appBar: AppBar(
         title: Text('Number Trivia'),
       ),
       body: Column(
         children: [
-          InkWell(
-            child: Text("Random"),
-            onTap: () {
-              ref
-                  .read(numberTriviaProvider.notifier)
-                  .getConcreteNumberTrivia("1");
-            },
+          Container(
+            width: double.infinity,
+            height: 400,
+            child: state is Empty
+                ? Container()
+                : state is Loading
+                    ? const Center(
+                        child: CircularProgressIndicator(),
+                      )
+                    : state is Error
+                        ? Center(
+                            child: Text(state.message),
+                          )
+                        : loadedWidget(state as Loaded),
           ),
-          state is Empty
-              ? Container()
-              : state is Loading
-                  ? const Center(
-                      child: CircularProgressIndicator(),
-                    )
-                  : state is Error
-                      ? Center(
-                          child: Text(state.message),
-                        )
-                      : Center(
-                          child: Text((state as Loaded).numberTrivia.text),
-                        )
+          Padding(
+            padding: const EdgeInsets.all(10.0),
+            child: TextField(
+              controller: numberController,
+              decoration: new InputDecoration(
+                focusedBorder: OutlineInputBorder(
+                  borderSide: BorderSide(
+                      color: Theme.of(context).focusColor, width: 1.0),
+                ),
+                enabledBorder: OutlineInputBorder(
+                  borderSide: BorderSide(
+                      color: Theme.of(context).dividerColor, width: 1.0),
+                ),
+                hintText: 'Mobile Number',
+              ),
+            ),
+          ),
+          Row(
+            children: [
+              SizedBox(
+                width: 10,
+              ),
+              Expanded(
+                child: ElevatedButton(
+                    onPressed: () {
+                      final number = int.tryParse(numberController.text);
+                      if (number == null) return;
+                      ref
+                          .read(numberTriviaProvider.notifier)
+                          .getConcreteNumberTrivia(numberController.text);
+                    },
+                    child: Text("Search")),
+                flex: 1,
+              ),
+              SizedBox(
+                width: 10,
+              ),
+              Expanded(
+                child: ElevatedButton(
+                    onPressed: () {
+                      ref
+                          .read(numberTriviaProvider.notifier)
+                          .getRandomNumberTrivia();
+                    },
+                    child: Text("Random")),
+                flex: 1,
+              ),
+              SizedBox(
+                width: 10,
+              ),
+            ],
+          ),
         ],
       ),
     );
   }
+}
+
+Widget loadedWidget(Loaded data) {
+  return Column(
+    children: [
+      const SizedBox(
+        height: 25,
+      ),
+      Text(
+        data.numberTrivia.number.toString(),
+        style: const TextStyle(fontSize: 60, fontWeight: FontWeight.bold),
+      ),
+      Padding(
+        padding: const EdgeInsets.all(20.0),
+        child: Text(
+          data.numberTrivia.text,
+          style: const TextStyle(fontSize: 20),
+          textAlign: TextAlign.center,
+        ),
+      )
+    ],
+  );
 }
