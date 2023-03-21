@@ -44,6 +44,16 @@ class NumberTriviaNotifier extends StateNotifier<NumberTriviaState> {
       state = Loaded(numberTrivia);
     });
   }
+
+  void getRandomNumberTrivia() async {
+    state = Loading();
+    final result = await getRandomNumberTriviaUseCase(NoParams());
+    result.fold((failure) {
+      state = Error(_mapFailureToMessage(failure));
+    }, (numberTrivia) {
+      state = Loaded(numberTrivia);
+    });
+  }
 }
 
 String _mapFailureToMessage(Failure failure) {
