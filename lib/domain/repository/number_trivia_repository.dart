@@ -3,4 +3,5 @@ import 'package:dartz/dartz.dart';
 
 abstract class NumberTriviaRepository {
   Future<Either<Error, NumberTrivia>> getConcreteNumberTrivia(int number);
+  Future<Either<Error, NumberTrivia>> getRandomNumberTrivia();
 }
