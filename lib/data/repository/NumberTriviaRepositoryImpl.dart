@@ -4,7 +4,6 @@ import 'package:clean_architecture_flutter/data/network/NetworkInfo.dart';
 import 'package:clean_architecture_flutter/domain/model/number_trivia.dart';
 import 'package:clean_architecture_flutter/domain/repository/number_trivia_repository.dart';
 import 'package:dartz/dartz.dart';
-import 'package:flutter/cupertino.dart';
 
 class NumberTriviaRepositoryImpl implements NumberTriviaRepository {
   final NetworkInfo networkInfo;
@@ -18,7 +17,13 @@ class NumberTriviaRepositoryImpl implements NumberTriviaRepository {
   Future<Either<Error, NumberTrivia>> getConcreteNumberTrivia(
       int number) async {
     networkInfo.isConnect();
-    return Left(FlutterError("Not implement"));
+    try {
+      final result = await remoteDataSource.getConcreteNumberTrivia(number);
+      localDatasource.cacheNumberTrivia(result);
+      return Right(result);
+    } on Error catch (e) {
+      return Left(e);
+    }
   }
 
   @override
