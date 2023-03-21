@@ -59,4 +59,20 @@ class MockNumberTriviaRepository extends _i1.Mock
           ),
         )),
       ) as _i4.Future<_i2.Either<Error, _i5.NumberTrivia>>);
+  @override
+  _i4.Future<_i2.Either<Error, _i5.NumberTrivia>> getRandomNumberTrivia() =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #getRandomNumberTrivia,
+          [],
+        ),
+        returnValue: _i4.Future<_i2.Either<Error, _i5.NumberTrivia>>.value(
+            _FakeEither_0<Error, _i5.NumberTrivia>(
+          this,
+          Invocation.method(
+            #getRandomNumberTrivia,
+            [],
+          ),
+        )),
+      ) as _i4.Future<_i2.Either<Error, _i5.NumberTrivia>>);
 }
