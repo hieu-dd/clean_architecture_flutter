@@ -9,6 +9,6 @@ class GetConcreteNumberTrivia {
   GetConcreteNumberTrivia(this.repository);
 
   Future<Either<Failure, NumberTrivia>> call(int number) async {
-    return Left(UnExpectedError());
+    return Left(UnImplementError());
   }
 }

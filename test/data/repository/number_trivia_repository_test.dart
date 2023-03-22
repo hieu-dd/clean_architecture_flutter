@@ -1,3 +1,4 @@
+import 'package:clean_architecture_flutter/common/error/failure.dart';
 import 'package:clean_architecture_flutter/data/datasource/number_trivia_local_data_source.dart';
 import 'package:clean_architecture_flutter/data/datasource/number_trivia_remote_data_source.dart';
 import 'package:clean_architecture_flutter/data/network/NetworkInfo.dart';
@@ -5,7 +6,6 @@ import 'package:clean_architecture_flutter/data/repository/NumberTriviaRepositor
 import 'package:clean_architecture_flutter/domain/model/number_trivia.dart';
 import 'package:clean_architecture_flutter/domain/repository/number_trivia_repository.dart';
 import 'package:dartz/dartz.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
@@ -58,9 +58,9 @@ void main() {
       });
       test('shoult return errpr when call remote fail', () async {
         when(remoteDataSource.getConcreteNumberTrivia(tNumber))
-            .thenThrow(FlutterError("Remote error"));
+            .thenThrow(Error());
         final result = await repository.getConcreteNumberTrivia(1);
-        expect(result.isLeft(), true);
+        expect(result, Left(ServerError()));
       });
     });
   });

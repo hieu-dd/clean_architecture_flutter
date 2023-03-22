@@ -9,8 +9,8 @@ abstract class Failure extends Equatable implements Exception {
   List<Object?> get props => [message];
 }
 
-class RemoteError extends Failure {}
+class ServerError extends Failure {}
 
 class CachedError extends Failure {}
 
-class UnExpectedError extends Failure {}
+class UnImplementError extends Failure {}

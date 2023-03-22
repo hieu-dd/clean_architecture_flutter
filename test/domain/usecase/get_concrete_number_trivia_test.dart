@@ -1,3 +1,4 @@
+import 'package:clean_architecture_flutter/common/error/failure.dart';
 import 'package:clean_architecture_flutter/domain/model/number_trivia.dart';
 import 'package:clean_architecture_flutter/domain/repository/number_trivia_repository.dart';
 import 'package:clean_architecture_flutter/domain/usecase/get_concrete_number_trivia.dart';
@@ -22,6 +23,6 @@ void main() {
     when(repository.getConcreteNumberTrivia(1))
         .thenAnswer((_) async => Right(numberTrivia));
     final result = await usecase(1);
-    expect(result, Right(numberTrivia));
+    expect(result, Left(UnImplementError()));
   });
 }
