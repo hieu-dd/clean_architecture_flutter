@@ -18,7 +18,7 @@ void main() {
   late NumberTriviaRepository repository;
   late NetworkInfo networkInfo;
   late NumberTriviaLocalDatasource localDatasource;
-  late NumberTriviaRemoteDataSource remoteDataSource;
+  late MockNumberTriviaRemoteDataSource remoteDataSource;
   setUp(() {
     networkInfo = MockNetworkInfo();
     localDatasource = MockNumberTriviaLocalDatasource();
@@ -35,7 +35,7 @@ void main() {
     final tNumberTrivia = NumberTrivia(number: 1, text: "Hello");
     setUp(() {
       when(networkInfo.isConnect()).thenAnswer((_) async => true);
-      when(remoteDataSource.getConcreteNumberTrivia(tNumber))
+      when(remoteDataSource.getConcreteNumberTrivia(any))
           .thenAnswer((_) async => tNumberTrivia);
     });
     group('get concrete number trivia', () {
