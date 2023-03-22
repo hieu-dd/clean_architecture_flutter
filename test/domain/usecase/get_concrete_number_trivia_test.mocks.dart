@@ -5,8 +5,9 @@
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'dart:async' as _i4;
 
+import 'package:clean_architecture_flutter/common/error/failure.dart' as _i5;
 import 'package:clean_architecture_flutter/domain/model/number_trivia.dart'
-    as _i5;
+    as _i6;
 import 'package:clean_architecture_flutter/domain/repository/number_trivia_repository.dart'
     as _i3;
 import 'package:dartz/dartz.dart' as _i2;
@@ -43,36 +44,38 @@ class MockNumberTriviaRepository extends _i1.Mock
   }
 
   @override
-  _i4.Future<_i2.Either<Error, _i5.NumberTrivia>> getConcreteNumberTrivia(
+  _i4.Future<_i2.Either<_i5.Failure, _i6.NumberTrivia>> getConcreteNumberTrivia(
           int? number) =>
       (super.noSuchMethod(
         Invocation.method(
           #getConcreteNumberTrivia,
           [number],
         ),
-        returnValue: _i4.Future<_i2.Either<Error, _i5.NumberTrivia>>.value(
-            _FakeEither_0<Error, _i5.NumberTrivia>(
+        returnValue:
+            _i4.Future<_i2.Either<_i5.Failure, _i6.NumberTrivia>>.value(
+                _FakeEither_0<_i5.Failure, _i6.NumberTrivia>(
           this,
           Invocation.method(
             #getConcreteNumberTrivia,
             [number],
           ),
         )),
-      ) as _i4.Future<_i2.Either<Error, _i5.NumberTrivia>>);
+      ) as _i4.Future<_i2.Either<_i5.Failure, _i6.NumberTrivia>>);
   @override
-  _i4.Future<_i2.Either<Error, _i5.NumberTrivia>> getRandomNumberTrivia() =>
-      (super.noSuchMethod(
-        Invocation.method(
-          #getRandomNumberTrivia,
-          [],
-        ),
-        returnValue: _i4.Future<_i2.Either<Error, _i5.NumberTrivia>>.value(
-            _FakeEither_0<Error, _i5.NumberTrivia>(
-          this,
-          Invocation.method(
-            #getRandomNumberTrivia,
-            [],
-          ),
-        )),
-      ) as _i4.Future<_i2.Either<Error, _i5.NumberTrivia>>);
+  _i4.Future<_i2.Either<_i5.Failure, _i6.NumberTrivia>>
+      getRandomNumberTrivia() => (super.noSuchMethod(
+            Invocation.method(
+              #getRandomNumberTrivia,
+              [],
+            ),
+            returnValue:
+                _i4.Future<_i2.Either<_i5.Failure, _i6.NumberTrivia>>.value(
+                    _FakeEither_0<_i5.Failure, _i6.NumberTrivia>(
+              this,
+              Invocation.method(
+                #getRandomNumberTrivia,
+                [],
+              ),
+            )),
+          ) as _i4.Future<_i2.Either<_i5.Failure, _i6.NumberTrivia>>);
 }
