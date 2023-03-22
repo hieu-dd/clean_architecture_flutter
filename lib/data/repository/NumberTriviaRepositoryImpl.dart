@@ -5,6 +5,8 @@ import 'package:clean_architecture_flutter/domain/model/number_trivia.dart';
 import 'package:clean_architecture_flutter/domain/repository/number_trivia_repository.dart';
 import 'package:dartz/dartz.dart';
 
+import '../../common/error/failure.dart';
+
 class NumberTriviaRepositoryImpl implements NumberTriviaRepository {
   final NetworkInfo networkInfo;
   final NumberTriviaRemoteDataSource remoteDataSource;
@@ -14,29 +16,14 @@ class NumberTriviaRepositoryImpl implements NumberTriviaRepository {
       this.networkInfo, this.localDatasource, this.remoteDataSource);
 
   @override
-  Future<Either<Error, NumberTrivia>> getConcreteNumberTrivia(
-      int number) async {
-    return _getNumberTrivia(
-        () async => remoteDataSource.getConcreteNumberTrivia(number),
-        () async => localDatasource.getConcreteNumberTrivia(number));
+  Future<Either<Failure, NumberTrivia>> getConcreteNumberTrivia(
+    int number,
+  ) async {
+    return Left(UnExpectedError());
   }
 
   @override
-  Future<Either<Error, NumberTrivia>> getRandomNumberTrivia() {
-    // TODO: implement getRandomNumberTrivia
-    throw UnimplementedError();
-  }
-
-  Future<Either<Error, NumberTrivia>> _getNumberTrivia(
-      Future<NumberTrivia> Function() getRemoteNumberTrivia,
-      Future<NumberTrivia> Function() getLocalNumberTrivia) async {
-    try {
-      networkInfo.isConnect();
-      final result = await getRemoteNumberTrivia.call();
-      localDatasource.cacheNumberTrivia(result);
-      return Right(result);
-    } on Error catch (e) {
-      return Left(e);
-    }
+  Future<Either<Failure, NumberTrivia>> getRandomNumberTrivia() async {
+    return Left(UnExpectedError());
   }
 }
