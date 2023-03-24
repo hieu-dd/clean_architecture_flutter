@@ -24,16 +24,15 @@ class NumberTriviaRepositoryImpl implements NumberTriviaRepository {
     if (networkInfo.isConnected()) {
       try {
         final result = await remoteDataSource.getConcreteNumberTrivia(number);
-        // localDataSource.cacheNumberTrivia(result);
+        localDataSource.cacheNumberTrivia(result);
         return Right(result);
       } catch (e) {
         return Left(ServerFailure());
       }
     } else {
       try {
-        // final result = await localDataSource.getConcreteNumberTrivia(number);
-        // return Right(result);
-        return Left(CacheFailure());
+        final result = await localDataSource.getConcreteNumberTrivia(number);
+        return Right(result);
       } catch (e) {
         return Left(CacheFailure());
       }
@@ -45,7 +44,7 @@ class NumberTriviaRepositoryImpl implements NumberTriviaRepository {
     if (networkInfo.isConnected()) {
       try {
         final result = await remoteDataSource.getRandomNumberTrivia();
-        // localDataSource.cacheNumberTrivia(result);
+        localDataSource.cacheNumberTrivia(result);
         return Right(result);
       } catch (e) {
         return Left(ServerFailure());
