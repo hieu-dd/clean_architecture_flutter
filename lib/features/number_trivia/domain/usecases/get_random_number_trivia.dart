@@ -7,7 +7,7 @@ import 'package:injectable/injectable.dart';
 import '../../../../core/error/failure.dart';
 import '../repositories/number_trivia_repository.dart';
 
-@Injectable()
+@Singleton()
 class GetRandomNumberTrivia implements UseCase<NumberTrivia, NoParams> {
   final NumberTriviaRepository _repository;
   GetRandomNumberTrivia(this._repository);

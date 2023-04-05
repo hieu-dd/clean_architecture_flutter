@@ -61,8 +61,8 @@ extension GetItInjectableX on _i1.GetIt {
     ));
     gh.singleton<_i10.GetConcreteNumberTrivia>(
         _i10.GetConcreteNumberTrivia(gh<_i8.NumberTriviaRepository>()));
-    gh.factory<_i11.GetRandomNumberTrivia>(
-        () => _i11.GetRandomNumberTrivia(gh<_i8.NumberTriviaRepository>()));
+    gh.singleton<_i11.GetRandomNumberTrivia>(
+        _i11.GetRandomNumberTrivia(gh<_i8.NumberTriviaRepository>()));
     gh.factory<_i12.NumberTriviaNotifier>(() => _i12.NumberTriviaNotifier(
           getConcreteNumberTriviaUseCase: gh<_i10.GetConcreteNumberTrivia>(),
           getRandomNumberTriviaUseCase: gh<_i11.GetRandomNumberTrivia>(),
