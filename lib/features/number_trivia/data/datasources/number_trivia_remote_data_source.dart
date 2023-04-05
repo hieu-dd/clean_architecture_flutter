@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:clean_architecture_flutter/core/error/exception.dart';
 import 'package:http/http.dart' as http;
+import 'package:injectable/injectable.dart';
 
 import '../models/number_trivia_model.dart';
 
@@ -11,6 +12,7 @@ abstract class NumberTriviaRemoteDataSource {
   Future<NumberTriviaModel> getRandomNumberTrivia();
 }
 
+@Singleton(as: NumberTriviaRemoteDataSource)
 class NumberTriviaRemoteDataSourceImpl implements NumberTriviaRemoteDataSource {
   final http.Client client;
 

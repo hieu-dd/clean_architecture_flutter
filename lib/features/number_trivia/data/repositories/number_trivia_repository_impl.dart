@@ -5,12 +5,13 @@ import 'package:clean_architecture_flutter/features/number_trivia/data/datasourc
 import 'package:clean_architecture_flutter/features/number_trivia/domain/entities/number_trivia.dart';
 import 'package:clean_architecture_flutter/features/number_trivia/domain/repositories/number_trivia_repository.dart';
 import 'package:dartz/dartz.dart';
+import 'package:injectable/injectable.dart';
 
+@Singleton(as: NumberTriviaRepository)
 class NumberTriviaRepositoryImpl implements NumberTriviaRepository {
   NumberTriviaLocalDataSource localDataSource;
   NumberTriviaRemoteDataSource remoteDataSource;
   NetworkInfo networkInfo;
-
   NumberTriviaRepositoryImpl({
     required this.localDataSource,
     required this.remoteDataSource,

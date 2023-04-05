@@ -1,8 +1,9 @@
 import 'package:clean_architecture_flutter/core/error/failure.dart';
 import 'package:clean_architecture_flutter/features/number_trivia/domain/entities/number_trivia.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:injectable/injectable.dart';
 
-import '../../../../di/injection_container.dart';
+import '../../../../di/injection.dart';
 import '../../domain/usecases/get_concrete_number_trivia.dart';
 import '../../domain/usecases/get_random_number_trivia.dart';
 
@@ -24,6 +25,7 @@ class Loaded implements NumberTriviaState {
   Loaded(this.numberTrivia);
 }
 
+@Injectable()
 class NumberTriviaNotifier extends StateNotifier<NumberTriviaState> {
   final GetConcreteNumberTrivia getConcreteNumberTriviaUseCase;
   final GetRandomNumberTrivia getRandomNumberTriviaUseCase;
@@ -70,5 +72,5 @@ String _mapFailureToMessage(Failure failure) {
 
 final numberTriviaProvider =
     StateNotifierProvider<NumberTriviaNotifier, NumberTriviaState>((ref) {
-  return sl<NumberTriviaNotifier>();
+  return getIt<NumberTriviaNotifier>();
 });

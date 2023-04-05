@@ -2,17 +2,19 @@ import 'package:clean_architecture_flutter/core/usecase/usecase.dart';
 import 'package:clean_architecture_flutter/features/number_trivia/domain/entities/number_trivia.dart';
 import 'package:dartz/dartz.dart';
 import 'package:equatable/equatable.dart';
+import 'package:injectable/injectable.dart';
+
 import '../../../../core/error/failure.dart';
 import '../repositories/number_trivia_repository.dart';
 
+@Injectable()
 class GetRandomNumberTrivia implements UseCase<NumberTrivia, NoParams> {
-  final NumberTriviaRepository repository;
-
-  GetRandomNumberTrivia(this.repository);
+  final NumberTriviaRepository _repository;
+  GetRandomNumberTrivia(this._repository);
 
   @override
   Future<Either<Failure, NumberTrivia>> call(NoParams params) async {
-    return await repository.getRandomNumberTrivia();
+    return await _repository.getRandomNumberTrivia();
   }
 }
 
