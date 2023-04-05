@@ -14,7 +14,9 @@ abstract class NumberTriviaLocalDataSource {
 
 @Singleton(as: NumberTriviaLocalDataSource)
 class NumberTriviaLocalDataSourceImpl implements NumberTriviaLocalDataSource {
-  NumberTriviaLocalDataSourceImpl();
+  final SharedPreferences sharedPreferences;
+
+  NumberTriviaLocalDataSourceImpl(this.sharedPreferences);
 
   @override
   Future<void> cacheNumberTrivia(NumberTriviaModel numberTriviaModel) async {
